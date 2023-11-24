@@ -146,14 +146,28 @@ void loop()
 {
 
   tasterstatus = digitalRead(taster);
-  if (tasterstatus == HIGH && active == false) {
+  if (tasterstatus == HIGH && active == false)
+  {
     active = true;
+    while (tasterstatus == HIGH)
+    {
+      tasterstatus = digitalRead(taster);
 
-  } else if (tasterstatus == HIGH && active == true) {
+      delay(1);
+    }
+  }
+  else if (tasterstatus == HIGH && active == true)
+  {
     active = false;
     digitalWrite(red_led, LOW);
     tmp1 = 0;
     tmp2 = 0;
+    while (tasterstatus == HIGH)
+    {
+      tasterstatus = digitalRead(taster);
+
+      delay(1);
+    }
   }
 
   if (active == true)
@@ -188,7 +202,6 @@ void loop()
     {
       Serial.println("Error: Could not read temperature data");
     }
-    
+    delay(1000);
   }
-  delay(1000);
 }
